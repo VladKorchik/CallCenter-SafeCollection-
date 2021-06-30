@@ -20,7 +20,10 @@ public class Operator extends Thread{
         try {
             while (!isInterrupted()) {
                 Thread.sleep(aht);
-                callsQueue.remove();
+                if (callsQueue.poll() == null) {
+                    System.out.println(name + " в ожидании звонка...");
+                    continue;
+                }
                 System.out.println(name + " принял новый звонок.");
             }
         }   catch (InterruptedException | NoSuchElementException exception) {
